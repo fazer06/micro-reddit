@@ -48,7 +48,7 @@ Just like in the warmup, plan out what data models you would need to allow users
 
 - rails new micro-reddit
 
-After you create new direcotry, change into that directory from the command line:
+After you create the new project, change into that directory from the command line:
 
 - cd micro-reddit
 
@@ -56,7 +56,7 @@ After you create new direcotry, change into that directory from the command line
 
 - rails generate model User username:string email:string password:string
 
-Check the micro-reddit/db/migrate/ folder to confirm migration file was created
+Check the micro-reddit/db/migrate/ folder to confirm the migration file was created
 
 Run the migration with 
 
@@ -74,13 +74,19 @@ create a blank new user and store it to a variable with
 
 - u = User.new
 
-Check if record is valid:
+Check if the record is valid:
 
 - u.valid?
 
 Implement the user validations you thought of in the first step 
 
-- in app/models/user.rb
+in app/models/user.rb
+
+- validates :username, presence: true, length: { maximum: 25 }, uniqueness: true
+
+- validates :email, presence: true, length: { maximum: 255 }, uniqueness: true
+		   
+- validates :password, presence: true, length: { minimum: 6 }
 
 Reload the console, and confirm that your validations are working:
 
@@ -94,7 +100,7 @@ Build another new user but don't save it yet
 
 This time the validations should come up false, so we can't save to the database
 
-We need to find out what went wrong, Rails is helpful because it actually attaches error messages directly onto your user object when they fail validations. Issue the follow command and it will return a nice friendly array of messages using the #errors.full_messages method:
+We need to find out what went wrong, Rails is helpful because it actually attaches error messages directly onto your user object when they fail validations. Issue the follow command and it will return a nice friendly array of messages using the errors.full_messages method:
 
 - u2.errors.full_messages
 
